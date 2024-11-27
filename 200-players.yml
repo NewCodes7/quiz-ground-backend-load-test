@@ -1,0 +1,116 @@
+config:
+  target: "http://localhost:3000/game"
+  socketio: 
+    query: 'game-id=636255'
+  phases:
+    - duration: 10
+      arrivalRate: 20
+  processor: "./processors.js" 
+
+# before:
+#   engine: socketio
+#   flow:
+#     - function: "createAndJoinRoom"
+#     - think: 1
+
+scenarios:
+  - name: "200 players test"
+    engine: socketio
+    flow:
+      - function: 'setPlayerName'
+
+      - function: 'updatePosition'
+      - think: 0.1
+      - function: 'updatePosition'
+      - think: 0.5
+      - function: 'chatMessage'
+      - think: 0.2
+      - function: 'updatePosition'
+      - think: 0.5
+      - function: 'chatMessage'
+      - think: 0.5
+      - function: 'updatePosition'
+      - think: 0.1
+      - function: 'updatePosition'
+      - think: 0.5
+      - function: 'updatePosition'
+      - think: 0.5
+      - function: 'chatMessage'
+      - think: 0.3
+      - function: 'updatePosition'
+      - think: 0.5
+      - function: 'updatePosition'
+      - think: 0.5
+      - function: 'chatMessage'
+      - think: 0.1
+      - function: 'updatePosition'
+      - think: 0.5
+      - function: 'updatePosition'
+
+
+
+      # - loop:
+      #   - function: "updatePosition"
+      #   - think: 0.5
+      #   count: 1
+      # - emit:
+      #     channel: "setPlayerName"
+      #     data:
+      #       playerName: "끝"
+      # - emit:
+      #     channel: "chatMessage"
+      #     data:
+      #         gameId: "101608"
+      #         message: "제발 되게 해주세요"
+
+      # - think: 0.5
+      # - function: 'updatePosition2'
+      # - think: 0.5
+      # - function: 'updatePosition'
+
+      # 게임방 입장 -> setPlayerName 
+      # - emit:
+      #     channel: "setPlayerName"
+      #     data:
+      #       playerName: "user{{ userId }}"
+      #   # response: 
+      #   #   channel: "joinRoom"
+      #   #   capture: 
+      #   #     json: "$"
+      #   #     as: "joinRoomResponse"
+      #   #     strict: false # 누군가 response 못 받아도 테스트 계속 진행
+      # - think: 1
+
+      # - emit:
+      #     channel: "updatePosition"
+      #     data:
+      #       gameId: "101608"
+      #       newPosition: "{{ position }}"
+      #   response: 
+      #     channel: "updatePosition"
+      #     match: 
+      #       json: "$.0.playerId"
+      #       value: "{{ myPlayerId }}"
+
+        # response: 
+        #   channel: "updatePosition"
+        #   capture:
+        #     json: "$"
+        #     as: "updatePositionResponse1"
+      # - think: 0.5
+
+      # 위치 업데이트 
+      # - loop:
+      #   - emit:
+      #       channel: "updatePosition"
+      #       data:
+      #         gameId: "698488"
+      #         newPosition: "{{ position }}"
+      #     response: 
+      #       channel: "updatePosition"
+      #       capture: 
+      #         json: "$"
+      #         as: "updatePositionResponse"
+      #         strict: false # 누군가 response 못 받아도 테스트 계속 진행
+      #   - think: 0.5
+      #   count: 20
