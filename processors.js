@@ -3,9 +3,9 @@ const fsSync = require('fs');
 
 /* 초기 필요한 상수 정의 !! */
 const MAX_PLAYERS = 200;
-const GAME_ID = '129470';
+const GAME_ID = '155244';
 
-const DURATION_TIME = 20000;
+const DURATION_TIME = 10000;
 const TOTAL_THINK_TIME = 4800;
 
 const TIME_OUT = DURATION_TIME + TOTAL_THINK_TIME + 10000;
@@ -86,7 +86,7 @@ function setPlayerName(userContext, events, done) {
                         return done();
                     } else {
                         // 100ms 후에 다시 체크
-                        setTimeout(waitForPlayers, 100);
+                        setTimeout(waitForPlayers, 500);
                     }
                 };
 

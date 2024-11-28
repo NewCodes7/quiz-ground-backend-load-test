@@ -2,9 +2,9 @@ const { io } = require('socket.io-client');
 const fs = require('fs');
 
 // Socket.IO 클라이언트 생성
-const socket = io('http://localhost:3000/game', {
+const socket = io('https://quizground.duckdns.org:3333/game', {
     query: {
-        "create-room": "title=test;gameMode=RANKING;maxPlayerCount=200;isPublic=true"
+        "create-room": "title=test;gameMode=RANKING;maxPlayerCount=210;isPublic=true"
     }
 });
 
