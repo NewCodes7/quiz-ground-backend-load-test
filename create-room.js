@@ -1,6 +1,9 @@
 const { io } = require('socket.io-client');
 const fs = require('fs');
 
+/* 
+* 초기 필요한 상수 정의 
+*/
 const GAME_OPTION = "title=test;gameMode=RANKING;maxPlayerCount=210;isPublic=true";
 
 const socket = io(process.env.TARGET, {
