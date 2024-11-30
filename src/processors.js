@@ -17,7 +17,7 @@ const FIRST_WAIT_TIME = DURATION_TIME + 10000;
 /* 
 * 플레이어가 현재 몇 명 접속했는지 파악하기 위한 파일 관련 함수
 */
-const COUNTER_FILE = 'thread-counter.txt';
+const COUNTER_FILE = './src/thread-counter.txt';
 
 try {
     fsSync.writeFileSync(COUNTER_FILE, '0', 'utf8');
