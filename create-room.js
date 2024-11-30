@@ -1,9 +1,11 @@
 const { io } = require('socket.io-client');
 const fs = require('fs');
 
-const socket = io('https://quizground.duckdns.org:3333/game', {
+const GAME_OPTION = "title=test;gameMode=RANKING;maxPlayerCount=210;isPublic=true";
+
+const socket = io(process.env.TARGET, {
     query: {
-        "create-room": "title=test;gameMode=RANKING;maxPlayerCount=210;isPublic=true"
+        "create-room": GAME_OPTION
     }
 });
 

@@ -1,7 +1,7 @@
 config:
-  target: "https://quizground.duckdns.org:3333/game"
+  target: "{{ $env.TARGET }}"
   socketio: 
-    query: 'game-id=628607'
+    query: 'game-id=594686'
   phases:
     - duration: 10
       arrivalRate: 10

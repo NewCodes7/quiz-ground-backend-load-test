@@ -7,7 +7,10 @@
   "main": "create-room-processor.js",
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "init:dev": "TARGET=http://localhost:3000/game node create-room.js",
+    "init:prod": "TARGET=https://quizground.duckdns.org:3333/game DURATION=10000 node create-room.js",
+    "start:dev": "TARGET=http://localhost:3000/game artillery run game-scenario.yml",
+    "start:prod": "TARGET=https://quizground.duckdns.org:3333/game artillery run game-scenario.yml"
   },
   "author": "",
   "license": "ISC",

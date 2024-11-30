@@ -1,9 +1,11 @@
 const fs = require('fs').promises;
 const fsSync = require('fs');
 
-/* 초기 필요한 상수 정의 !! */
-const MAX_PLAYERS = 95;
-const GAME_ID = '628607';
+/* 
+* 초기 필요한 상수 정의 
+*/
+const MIN_PLAYERS_FOR_TEST = 95;
+const GAME_ID = '594686';
 
 const DURATION_TIME = 10000;
 const TOTAL_THINK_TIME = 4800;
@@ -11,11 +13,15 @@ const TOTAL_THINK_TIME = 4800;
 const TIME_OUT = DURATION_TIME + TOTAL_THINK_TIME + 10000;
 const FIRST_WAIT_TIME = DURATION_TIME + 10000;
 
-const COUNTER_FILE = 'thread_counter.txt';
+/* 
+* 플레이어가 현재 몇 명 접속했는지 파악하기 위한 파일 관련 함수
+*/
+const COUNTER_FILE = 'thread-counter.txt';
+
 try {
     fsSync.writeFileSync(COUNTER_FILE, '0', 'utf8');
 } catch (err) {
-    console.error('Failed to initialize counter file:', err);
+    console.error('파일 읽기 실패:', err);
 }
 
 async function incrementCounter() {
@@ -25,13 +31,9 @@ async function incrementCounter() {
         await fs.writeFile(COUNTER_FILE, newCount.toString(), 'utf8');
         return newCount;
     } catch (err) {
-        console.error('Error incrementing counter:', err);
+        console.error('카운트 증가 실패:', err);
         return -1;
     }
-}
-
-function getRandomPosition() {
- return [Math.random(), Math.random()];
 }
 
 async function checkCounter() {
@@ -39,17 +41,22 @@ async function checkCounter() {
         const currentCount = await fs.readFile(COUNTER_FILE, 'utf8');
         return parseInt(currentCount);
     } catch (err) {
-        console.error('Error reading counter:', err);
+        console.error('카운트 읽기 실패:', err);
         return -1;
     }
+}
+
+/* 
+* 본격적인 테스트를 위한 함수들
+*/
+function getRandomPosition() {
+ return [Math.random(), Math.random()];
 }
 
 function setPlayerName(userContext, events, done) {
     let doneCalled = false;
 
-    incrementCounter().then(count => {
-        console.log(`Thread entered setPlayerName. Current count: ${count}`);
-    });
+    incrementCounter();
 
     const startedAt = process.hrtime();
     userContext.vars.userId = `${Math.random()}번째 유저`;
@@ -76,10 +83,10 @@ function setPlayerName(userContext, events, done) {
             if (!doneCalled) {
                 const waitForPlayers = async () => {
                     const currentCount = await checkCounter();
-                    console.log(`Waiting for players... Current count: ${currentCount}`);
+                    console.log(`플레이어들을 기다리는 중... 현재 접속 인원: ${currentCount}명`);
                     
-                    if (Number(currentCount) >= MAX_PLAYERS) {
-                        console.log('All players have joined!');
+                    if (Number(currentCount) >= MIN_PLAYERS_FOR_TEST) {
+                        console.log(`${currentCount}명의 플레이어가 접속했습니다. 테스트를 시작합니다!`);
                         doneCalled = true;
                         return done();
                     } else {
@@ -155,7 +162,7 @@ function chatMessage(userContext, events, done) {
     const startedAt = process.hrtime();
     const socket = userContext.sockets[''];
 
-    const newMessage = `제발 되게 해주세요! 제발!${Math.random()}`;
+    const newMessage = `이것은 플레이어가 보내는 고유한 메시지입니다! ${Math.random()}`;
  
     socket.on('chatMessage', (response) => {
         const { playerId, playerName, message, timestamp } = response;
