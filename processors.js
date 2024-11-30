@@ -2,8 +2,8 @@ const fs = require('fs').promises;
 const fsSync = require('fs');
 
 /* 초기 필요한 상수 정의 !! */
-const MAX_PLAYERS = 200;
-const GAME_ID = '155244';
+const MAX_PLAYERS = 95;
+const GAME_ID = '628607';
 
 const DURATION_TIME = 10000;
 const TOTAL_THINK_TIME = 4800;
@@ -11,7 +11,6 @@ const TOTAL_THINK_TIME = 4800;
 const TIME_OUT = DURATION_TIME + TOTAL_THINK_TIME + 10000;
 const FIRST_WAIT_TIME = DURATION_TIME + 10000;
 
-// 카운터 파일 초기화
 const COUNTER_FILE = 'thread_counter.txt';
 try {
     fsSync.writeFileSync(COUNTER_FILE, '0', 'utf8');
@@ -31,7 +30,6 @@ async function incrementCounter() {
     }
 }
 
-// 0과 1 사이의 랜덤 소수점 숫자 생성 함수
 function getRandomPosition() {
  return [Math.random(), Math.random()];
 }
@@ -85,7 +83,6 @@ function setPlayerName(userContext, events, done) {
                         doneCalled = true;
                         return done();
                     } else {
-                        // 100ms 후에 다시 체크
                         setTimeout(waitForPlayers, 500);
                     }
                 };
@@ -122,8 +119,6 @@ function updatePosition(userContext, events, done) {
             && playerPosition[0] === newPosition[0] 
             && playerPosition[1] === newPosition[1]
         ) {
-            // console.log('Successfully updated position:', response);
-
             // 타이머 끝 
             const endedAt = process.hrtime(startedAt);
             const delta = endedAt[0] * 1e9 + endedAt[1];
@@ -148,7 +143,7 @@ function updatePosition(userContext, events, done) {
             console.error('[ERROR] updatePosition timed out');
             events.emit('counter', 'total_count.fail.update_position', 1);
             doneCalled = true;
-            done(new Error('Operation timed out')); // 비정상 종료라도 `done()` 호출
+            done(new Error('Operation timed out'));
         }
     }, TIME_OUT);
 }
@@ -167,8 +162,6 @@ function chatMessage(userContext, events, done) {
  
         if (playerId === userContext.vars.myPlayerId 
             && message === newMessage) {
-            // console.log('Successfully sent chat message:', response);
- 
             // 타이머 끝
             const endedAt = process.hrtime(startedAt);
             const delta = endedAt[0] * 1e9 + endedAt[1];
@@ -193,7 +186,7 @@ function chatMessage(userContext, events, done) {
             console.error('[ERROR] chatMessage timed out');
             events.emit('counter', 'total_count.fail.chat_message', 1);
             doneCalled = true;
-            done(new Error('Operation timed out')); // 비정상 종료라도 `done()` 호출
+            done(new Error('Operation timed out')); 
         }
     }, TIME_OUT);
 }
@@ -203,5 +196,3 @@ module.exports = {
     updatePosition,
     chatMessage
 };
-
-

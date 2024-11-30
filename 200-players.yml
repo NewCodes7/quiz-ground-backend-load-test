@@ -1,17 +1,11 @@
 config:
   target: "https://quizground.duckdns.org:3333/game"
   socketio: 
-    query: 'game-id=155244'
+    query: 'game-id=628607'
   phases:
     - duration: 10
-      arrivalRate: 20
+      arrivalRate: 10
   processor: "./processors.js" 
-
-# before:
-#   engine: socketio
-#   flow:
-#     - function: "createAndJoinRoom"
-#     - think: 1
 
 scenarios:
   - name: "200 players test"
@@ -46,9 +40,6 @@ scenarios:
       - function: 'updatePosition'
       - think: 0.5
       # - function: 'updatePosition'
-
-
-
       # - loop:
       #   - function: "updatePosition"
       #   - think: 0.5
