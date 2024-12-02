@@ -1,16 +1,21 @@
 {
   "dependencies": {
+    "concurrently": "^9.1.0",
     "socket.io-client": "^4.8.1"
   },
   "name": "artillery-quiz-ground",
   "version": "1.0.0",
   "main": "create-room-processor.js",
-  "devDependencies": {},
   "scripts": {
     "init:dev": "TARGET=http://localhost:3000/game node ./src/create-room.js",
     "init:prod": "TARGET=https://quizground.duckdns.org:3333/game DURATION=10000 node ./src/create-room.js",
+    "init:rooms2:dev": "TARGET=http://localhost:3000/game node ./src/init-two-rooms.js",
+    "init:rooms2:prod": "TARGET=https://quizground.duckdns.org:3333/game node .src/init-two-rooms.js",
     "start:dev": "TARGET=http://localhost:3000/game artillery run ./src/game-scenario.yml",
-    "start:prod": "TARGET=https://quizground.duckdns.org:3333/game artillery run ./src/game-scenario.yml"
+    "start:prod": "TARGET=https://quizground.duckdns.org:3333/game artillery run ./src/game-scenario.yml",
+    "start:dev:rooms2": "concurrently \"npm run test:room1\" \"npm run test:room2\"",
+    "test:room1": "GAME_ID=317646 TARGET=http://localhost:3000/game COUNTER_FILE=./src/thread-counter.txt artillery run ./src/game-scenario.yml",
+    "test:room2": "GAME_ID=337153 TARGET=http://localhost:3000/game COUNTER_FILE=./src/thread-counter2.txt artillery run ./src/game-scenario.yml"
   },
   "author": "",
   "license": "ISC",

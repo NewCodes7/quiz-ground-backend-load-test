@@ -4,11 +4,11 @@ const fsSync = require('fs');
 /* 
 * 초기 필요한 상수 정의 
 */
-const MIN_PLAYERS_FOR_TEST = 95;
-const GAME_ID = '594686';
+const MIN_PLAYERS_FOR_TEST = 190;
+const GAME_ID = process.env.GAME_ID;
 
 // TODO: 상수 설정 자동화
-const DURATION_TIME = 10000; // game-scenraio.yml duration과 동일하게 설정
+const DURATION_TIME = 5000; // game-scenraio.yml duration과 동일하게 설정
 const TOTAL_THINK_TIME = 4800; // game-scenario.yml think-time 총합과 동일하게 설정
 
 const TIME_OUT = DURATION_TIME + TOTAL_THINK_TIME + 10000;
@@ -17,7 +17,7 @@ const FIRST_WAIT_TIME = DURATION_TIME + 10000;
 /* 
 * 플레이어가 현재 몇 명 접속했는지 파악하기 위한 파일 관련 함수
 */
-const COUNTER_FILE = './src/thread-counter.txt';
+const COUNTER_FILE = process.env.COUNTER_FILE;
 
 try {
     fsSync.writeFileSync(COUNTER_FILE, '0', 'utf8');
