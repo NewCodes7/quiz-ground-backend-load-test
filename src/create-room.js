@@ -36,4 +36,6 @@ async function createRoom() {
     });
 }
 
+createRoom();
+
 module.exports = { createRoom };
