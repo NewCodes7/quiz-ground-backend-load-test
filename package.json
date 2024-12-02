@@ -17,8 +17,8 @@
     "start:prod:rooms2": "concurrently \"npm run start:prod:room2\" \"npm run start:prod:room2\"",
     "start:dev:room1": "GAME_ID=167084 TARGET=http://localhost:3000/game COUNTER_FILE=./src/thread-counter.txt artillery run ./src/game-scenario.yml",
     "start:dev:room2": "GAME_ID=868255 TARGET=http://localhost:3000/game COUNTER_FILE=./src/thread-counter2.txt artillery run ./src/game-scenario.yml",
-    "start:prod:room2": "GAME_ID=868255 TARGET=https://quizground.duckdns.org:3333/game COUNTER_FILE=./src/thread-counter2.txt artillery run ./src/game-scenario.yml",
-    "start:prod:room2": "GAME_ID=868255 TARGET=https://quizground.duckdns.org:3333/game COUNTER_FILE=./src/thread-counter2.txt artillery run ./src/game-scenario.yml",
+    "start:prod:room1": "GAME_ID=868255 TARGET=https://quizground.duckdns.org:3333/game COUNTER_FILE=./src/thread-counter.txt artillery run ./src/game-scenario.yml",
+    "start:prod:room2": "GAME_ID=868255 TARGET=https://quizground.duckdns.org:3333/game COUNTER_FILE=./src/thread-counter2.txt artillery run ./src/game-scenario.yml"
   },
   "author": "",
   "license": "ISC",
