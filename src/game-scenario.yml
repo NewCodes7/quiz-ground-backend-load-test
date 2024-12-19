@@ -1,22 +1,64 @@
 config:
   target: "{{ $env.TARGET }}"
   socketio: 
-    query: 'game-id=594686'
+    query: 'game-id=117731'
   phases:
-    - duration: 10 # 테스트 시간
+    - duration: 20 # 테스트 시간
       arrivalRate: 10 # 1초에 몇 명의 유저가 들어올 것인지 설정 (arrivalRate * duration = 총 유저 수)
-  processor: "./processors.js" 
+  processor: "processors.js" 
 
 scenarios:
-  - name: "200 players test"
+  - name: "1-minute 200 players test"
     engine: socketio
     flow:
       - function: 'setPlayerName'
       - think: 1
       - function: 'updatePosition'
-      - think: 0.1
+      - think: 0.2
+      - function: 'chatMessage'
+      - think: 0.8
+      - function: 'updatePosition'
+      - think: 0.3
+      - function: 'chatMessage'
+      - think: 0.7
       - function: 'updatePosition'
       - think: 0.5
+      - function: 'chatMessage'
+      - think: 0.5
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6
+      - function: 'updatePosition'
+      - think: 0.2
+      - function: 'chatMessage'
+      - think: 0.8
+      - function: 'updatePosition'
+      - think: 0.9
+      - function: 'chatMessage'
+      - think: 0.1
+      - function: 'updatePosition'
+      - think: 0.3
+      - function: 'chatMessage'
+      - think: 0.7
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6
+      - function: 'updatePosition'
+      - think: 0.8
+      - function: 'chatMessage'
+      - think: 0.2
+      - function: 'updatePosition'
+      - think: 0.1
+      - function: 'chatMessage'
+      - think: 0.9
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6
+      - function: 'updatePosition'
+      - think: 0.8
       - function: 'chatMessage'
       - think: 0.2
       - function: 'updatePosition'
@@ -24,84 +66,320 @@ scenarios:
       - function: 'chatMessage'
       - think: 0.5
       - function: 'updatePosition'
-      - think: 0.1
-      - function: 'updatePosition'
-      - think: 0.5
-      - function: 'updatePosition'
-      - think: 0.5
+      - think: 0.2
       - function: 'chatMessage'
+      - think: 0.8
+      - function: 'updatePosition'
       - think: 0.3
-      - function: 'updatePosition'
-      - think: 0.5
+      - function: 'chatMessage'
+      - think: 0.7
       - function: 'updatePosition'
       - think: 0.5
       - function: 'chatMessage'
+      - think: 0.5
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6
+      - function: 'updatePosition'
+      - think: 0.2
+      - function: 'chatMessage'
+      - think: 0.8
+      - function: 'updatePosition'
+      - think: 0.9
+      - function: 'chatMessage'
       - think: 0.1
       - function: 'updatePosition'
+      - think: 0.3
+      - function: 'chatMessage'
+      - think: 0.7
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6
+      - function: 'updatePosition'
+      - think: 0.8
+      - function: 'chatMessage'
+      - think: 0.2
+      - function: 'updatePosition'
+      - think: 0.1
+      - function: 'chatMessage'
+      - think: 0.9
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6
+      - function: 'updatePosition'
+      - think: 0.8
+      - function: 'chatMessage'
+      - think: 0.2
+      - function: 'updatePosition'
       - think: 0.5
-      # - function: 'updatePosition'
-      # - loop:
-      #   - function: "updatePosition"
-      #   - think: 0.5
-      #   count: 1
-      # - emit:
-      #     channel: "setPlayerName"
-      #     data:
-      #       playerName: "끝"
-      # - emit:
-      #     channel: "chatMessage"
-      #     data:
-      #         gameId: "101608"
-      #         message: "제발 되게 해주세요"
-
-      # - think: 0.5
-      # - function: 'updatePosition2'
-      # - think: 0.5
-      # - function: 'updatePosition'
-
-      # 게임방 입장 -> setPlayerName 
-      # - emit:
-      #     channel: "setPlayerName"
-      #     data:
-      #       playerName: "user{{ userId }}"
-      #   # response: 
-      #   #   channel: "joinRoom"
-      #   #   capture: 
-      #   #     json: "$"
-      #   #     as: "joinRoomResponse"
-      #   #     strict: false # 누군가 response 못 받아도 테스트 계속 진행
-      # - think: 1
-
-      # - emit:
-      #     channel: "updatePosition"
-      #     data:
-      #       gameId: "101608"
-      #       newPosition: "{{ position }}"
-      #   response: 
-      #     channel: "updatePosition"
-      #     match: 
-      #       json: "$.0.playerId"
-      #       value: "{{ myPlayerId }}"
-
-        # response: 
-        #   channel: "updatePosition"
-        #   capture:
-        #     json: "$"
-        #     as: "updatePositionResponse1"
-      # - think: 0.5
-
-      # 위치 업데이트 
-      # - loop:
-      #   - emit:
-      #       channel: "updatePosition"
-      #       data:
-      #         gameId: "698488"
-      #         newPosition: "{{ position }}"
-      #     response: 
-      #       channel: "updatePosition"
-      #       capture: 
-      #         json: "$"
-      #         as: "updatePositionResponse"
-      #         strict: false # 누군가 response 못 받아도 테스트 계속 진행
-      #   - think: 0.5
-      #   count: 20
+      - function: 'chatMessage'
+      - think: 0.5
+      - function: 'updatePosition'
+      - think: 0.2
+      - function: 'chatMessage'
+      - think: 0.8
+      - function: 'updatePosition'
+      - think: 0.3
+      - function: 'chatMessage'
+      - think: 0.7
+      - function: 'updatePosition'
+      - think: 0.5
+      - function: 'chatMessage'
+      - think: 0.5
+      - function: 'updatePosition'
+      - think: 0.2
+      - function: 'chatMessage'
+      - think: 0.8
+  - name: "200 players test2"
+    engine: socketio
+    flow:
+      - function: 'setPlayerName'
+      - think: 1
+      - function: 'updatePosition'
+      - think: 0.2
+      - function: 'chatMessage'
+      - think: 0.8
+      - function: 'updatePosition'
+      - think: 0.3
+      - function: 'chatMessage'
+      - think: 0.7
+      - function: 'updatePosition'
+      - think: 0.5
+      - function: 'chatMessage'
+      - think: 0.5
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6
+      - function: 'updatePosition'
+      - think: 0.2
+      - function: 'chatMessage'
+      - think: 0.8
+      - function: 'updatePosition'
+      - think: 0.9
+      - function: 'chatMessage'
+      - think: 0.1
+      - function: 'updatePosition'
+      - think: 0.3
+      - function: 'chatMessage'
+      - think: 0.7
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6
+      - function: 'updatePosition'
+      - think: 0.8
+      - function: 'chatMessage'
+      - think: 0.2
+      - function: 'updatePosition'
+      - think: 0.1
+      - function: 'chatMessage'
+      - think: 0.9
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6
+      - function: 'updatePosition'
+      - think: 0.8
+      - function: 'chatMessage'
+      - think: 0.2
+      - function: 'updatePosition'
+      - think: 0.5
+      - function: 'chatMessage'
+      - think: 0.5
+      - function: 'updatePosition'
+      - think: 0.2
+      - function: 'chatMessage'
+      - think: 0.8
+      - function: 'updatePosition'
+      - think: 0.3
+      - function: 'chatMessage'
+      - think: 0.7
+      - function: 'updatePosition'
+      - think: 0.5
+      - function: 'chatMessage'
+      - think: 0.5
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6
+      - function: 'updatePosition'
+      - think: 0.2
+      - function: 'chatMessage'
+      - think: 0.8
+      - function: 'updatePosition'
+      - think: 0.9
+      - function: 'chatMessage'
+      - think: 0.1
+      - function: 'updatePosition'
+      - think: 0.3
+      - function: 'chatMessage'
+      - think: 0.7
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6
+      - function: 'updatePosition'
+      - think: 0.8
+      - function: 'chatMessage'
+      - think: 0.2
+      - function: 'updatePosition'
+      - think: 0.1
+      - function: 'chatMessage'
+      - think: 0.9
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6
+      - function: 'updatePosition'
+      - think: 0.8
+      - function: 'chatMessage'
+      - think: 0.2
+      - function: 'updatePosition'
+      - think: 0.5
+      - function: 'chatMessage'
+      - think: 0.5
+      - function: 'updatePosition'
+      - think: 0.2
+      - function: 'chatMessage'
+      - think: 0.8
+      - function: 'updatePosition'
+      - think: 0.3
+      - function: 'chatMessage'
+      - think: 0.7
+      - function: 'updatePosition'
+      - think: 0.5
+      - function: 'chatMessage'
+      - think: 0.5
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.5
+  - name: "200 players test3"
+    engine: socketio
+    flow:
+      - function: 'setPlayerName'
+      - think: 1
+      - function: 'updatePosition'
+      - think: 0.2
+      - function: 'chatMessage'
+      - think: 0.8
+      - function: 'updatePosition'
+      - think: 0.3
+      - function: 'chatMessage'
+      - think: 0.7
+      - function: 'updatePosition'
+      - think: 0.5
+      - function: 'chatMessage'
+      - think: 0.5
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6
+      - function: 'updatePosition'
+      - think: 0.2
+      - function: 'chatMessage'
+      - think: 0.8
+      - function: 'updatePosition'
+      - think: 0.9
+      - function: 'chatMessage'
+      - think: 0.1
+      - function: 'updatePosition'
+      - think: 0.3
+      - function: 'chatMessage'
+      - think: 0.7
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6
+      - function: 'updatePosition'
+      - think: 0.8
+      - function: 'chatMessage'
+      - think: 0.2
+      - function: 'updatePosition'
+      - think: 0.1
+      - function: 'chatMessage'
+      - think: 0.9
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6
+      - function: 'updatePosition'
+      - think: 0.8
+      - function: 'chatMessage'
+      - think: 0.2
+      - function: 'updatePosition'
+      - think: 0.5
+      - function: 'chatMessage'
+      - think: 0.5
+      - function: 'updatePosition'
+      - think: 0.2
+      - function: 'chatMessage'
+      - think: 0.8
+      - function: 'updatePosition'
+      - think: 0.3
+      - function: 'chatMessage'
+      - think: 0.7
+      - function: 'updatePosition'
+      - think: 0.5
+      - function: 'chatMessage'
+      - think: 0.5
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6
+      - function: 'updatePosition'
+      - think: 0.2
+      - function: 'chatMessage'
+      - think: 0.8
+      - function: 'updatePosition'
+      - think: 0.9
+      - function: 'chatMessage'
+      - think: 0.1
+      - function: 'updatePosition'
+      - think: 0.3
+      - function: 'chatMessage'
+      - think: 0.7
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6
+      - function: 'updatePosition'
+      - think: 0.8
+      - function: 'chatMessage'
+      - think: 0.2
+      - function: 'updatePosition'
+      - think: 0.1
+      - function: 'chatMessage'
+      - think: 0.9
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6
+      - function: 'updatePosition'
+      - think: 0.8
+      - function: 'chatMessage'
+      - think: 0.2
+      - function: 'updatePosition'
+      - think: 0.5
+      - function: 'chatMessage'
+      - think: 0.5
+      - function: 'updatePosition'
+      - think: 0.2
+      - function: 'chatMessage'
+      - think: 0.8
+      - function: 'updatePosition'
+      - think: 0.3
+      - function: 'chatMessage'
+      - think: 0.7
+      - function: 'updatePosition'
+      - think: 0.5
+      - function: 'chatMessage'
+      - think: 0.5
+      - function: 'updatePosition'
+      - think: 0.4
+      - function: 'chatMessage'
+      - think: 0.6

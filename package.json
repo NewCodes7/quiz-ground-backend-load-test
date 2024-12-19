@@ -8,9 +8,9 @@
   "devDependencies": {},
   "scripts": {
     "init:dev": "TARGET=http://localhost:3000/game node ./src/create-room.js",
-    "init:prod": "TARGET=https://quizground.duckdns.org:3333/game DURATION=10000 node ./src/create-room.js",
+    "init:prod": "TARGET=https://quizground.site:3333/game DURATION=10000 node ./src/create-room.js",
     "start:dev": "TARGET=http://localhost:3000/game artillery run ./src/game-scenario.yml",
-    "start:prod": "TARGET=https://quizground.duckdns.org:3333/game artillery run ./src/game-scenario.yml"
+    "start:prod": "TARGET=https://quizground.site:3333/game artillery run ./src/game-scenario.yml"
   },
   "author": "",
   "license": "ISC",
