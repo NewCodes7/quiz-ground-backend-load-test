@@ -4,7 +4,7 @@ const fsSync = require('fs');
 /* 
 * 초기 필요한 상수 정의 
 */
-const MIN_PLAYERS_FOR_TEST = 190;
+const MIN_PLAYERS_FOR_TEST = 1;
 const GAME_ID = process.env.GAME_ID;
 
 // TODO: 상수 설정 자동화
@@ -113,35 +113,97 @@ function setPlayerName(userContext, events, done) {
 }
 
 function updatePosition(userContext, events, done) {
+    let doneCalled = false;
+
     const socket = userContext.sockets[''];
 
     const newPosition = getRandomPosition();
 
+    // 타임아웃 처리 추가
+    const timeoutId = setTimeout(() => {
+        if (!doneCalled) {
+            doneCalled = true;
+            events.emit('counter', 'total_count.fail.update_position', 1);
+            done(new Error('Operation timed out'));
+        }
+    }, TIME_OUT);
+
+    socket.on('updatePosition', (response) => {
+        const { playerId, playerPosition } = response;
+
+        if (playerId === userContext.vars.myPlayerId 
+            && playerPosition[0] === newPosition[0] 
+            && playerPosition[1] === newPosition[1]
+        ) {
+            // 타이머 끝 
+            const endedAt = process.hrtime(startedAt);
+            const delta = endedAt[0] * 1e9 + endedAt[1];
+
+            events.emit('histogram', 'socketio.response_time.update_position', delta / 1e6);
+            events.emit('counter', 'total_count.success.update_position', 1);
+
+            if (!doneCalled) {
+                doneCalled = true;
+                clearTimeout(timeoutId);
+                // 0.3 ~ 0.7초 사이의 랜덤한 시간을 기다리고 done()
+                setTimeout(() => {
+                    return done();
+                }, Math.random() * 400 + 300);
+            }
+        }
+    })
+
+    const startedAt = process.hrtime();
     socket.emit('updatePosition', {
         gameId: GAME_ID,
         newPosition
     });
-
-    // 0.3 ~ 0.7초 사이의 랜덤한 시간을 기다리고 done()
-    setTimeout(() => {
-        return done();
-    }, Math.random() * 400 + 300);
 }
 
 function chatMessage(userContext, events, done) {
+    let doneCalled = false;
+
     const socket = userContext.sockets[''];
 
     const newMessage = `이것은 플레이어가 보내는 고유한 메시지입니다! ${Math.random()}`;
+
+    // 타임아웃 처리 추가
+    const timeoutId = setTimeout(() => {
+        if (!doneCalled) {
+            doneCalled = true;
+            events.emit('counter', 'total_count.fail.chat_message', 1);
+            done(new Error('Operation timed out'));
+        }
+    }, TIME_OUT);
  
+    socket.on('chatMessage', (response) => {
+        const { playerId, playerName, message, timestamp } = response;
+
+        if (playerId === userContext.vars.myPlayerId 
+            && message === newMessage) {
+            // 타이머 끝
+            const endedAt = process.hrtime(startedAt);
+            const delta = endedAt[0] * 1e9 + endedAt[1];
+
+            events.emit('histogram', 'socketio.response_time.chat_message', delta / 1e6);
+            events.emit('counter', 'total_count.success.chat_message', 1);
+
+            if (!doneCalled) {
+                doneCalled = true;
+                clearTimeout(timeoutId);
+                // 0.3 ~ 0.7초 사이의 랜덤한 시간을 기다리고 done()
+                setTimeout(() => {
+                    return done();
+                }, Math.random() * 400 + 300);
+            }
+        }
+    });
+
+    const startedAt = process.hrtime();
     socket.emit('chatMessage', {
         gameId: GAME_ID,
         message: newMessage
     });
- 
-    // 0.3 ~ 0.7초 사이의 랜덤한 시간을 기다리고 done()
-    setTimeout(() => {
-        return done();
-    }, Math.random() * 400 + 300);
 }
 
 module.exports = {
