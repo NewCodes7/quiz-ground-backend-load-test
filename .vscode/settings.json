@@ -1,0 +1,19 @@
+{
+    "yaml.schemas": {
+        "https://www.artillery.io/schema.json": [
+            "file:///Users/ksnghyk/artillery-quiz-ground/200-players.yml",
+            "git:/Users/ksnghyk/artillery-quiz-ground/200-players.yml?%7B%22path%22%3A%22%2FUsers%2Fksnghyk%2Fartillery-quiz-ground%2F200-players.yml%22%2C%22ref%22%3A%224bf6536d329919ae42a04e0f39f923ecb59c6b0b%22%7D",
+            "git:/Users/ksnghyk/artillery-quiz-ground/200-players.yml?%7B%22path%22%3A%22%2FUsers%2Fksnghyk%2Fartillery-quiz-ground%2F200-players.yml%22%2C%22ref%22%3A%22~%22%7D",
+            "git:/Users/ksnghyk/artillery-quiz-ground/200-players.yml?%7B%22path%22%3A%22%2FUsers%2Fksnghyk%2Fartillery-quiz-ground%2F200-players.yml%22%2C%22ref%22%3A%22HEAD%22%7D",
+            "git:/Users/ksnghyk/artillery-quiz-ground/200-players.yml?%7B%22path%22%3A%22%2FUsers%2Fksnghyk%2Fartillery-quiz-ground%2F200-players.yml%22%2C%22ref%22%3A%22%22%7D",
+            "file:///Users/ksnghyk/artillery-quiz-ground/pla-script.yml",
+            "file:///Users/ksnghyk/artillery-quiz-ground/game-scenario.yml",
+            "git:/Users/ksnghyk/artillery-quiz-ground/game-scenario.yml?%7B%22path%22%3A%22%2FUsers%2Fksnghyk%2Fartillery-quiz-ground%2Fgame-scenario.yml%22%2C%22ref%22%3A%22HEAD%22%7D",
+            "git:/Users/ksnghyk/artillery-quiz-ground/game-scenario.yml?%7B%22path%22%3A%22%2FUsers%2Fksnghyk%2Fartillery-quiz-ground%2Fgame-scenario.yml%22%2C%22ref%22%3A%22%22%7D",
+            "file:///Users/ksnghyk/artillery-quiz-ground/src/game-scenario.yml",
+            "git:/Users/ksnghyk/artillery-quiz-ground/src/game-scenario.yml?%7B%22path%22%3A%22%2FUsers%2Fksnghyk%2Fartillery-quiz-ground%2Fsrc%2Fgame-scenario.yml%22%2C%22ref%22%3A%22~%22%7D",
+            "git:/Users/ksnghyk/artillery-quiz-ground/src/game-scenario.yml?%7B%22path%22%3A%22%2FUsers%2Fksnghyk%2Fartillery-quiz-ground%2Fsrc%2Fgame-scenario.yml%22%2C%22ref%22%3A%22HEAD%22%7D",
+            "git:/Users/ksnghyk/artillery-quiz-ground/src/game-scenario.yml?%7B%22path%22%3A%22%2FUsers%2Fksnghyk%2Fartillery-quiz-ground%2Fsrc%2Fgame-scenario.yml%22%2C%22ref%22%3A%22%22%7D"
+        ]
+    }
+}
