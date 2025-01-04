@@ -4,7 +4,7 @@ const fsSync = require('fs');
 /* 
 * 초기 필요한 상수 정의 
 */
-const MIN_PLAYERS_FOR_TEST = 190;
+const MIN_PLAYERS_FOR_TEST = 100;
 const GAME_ID = process.env.GAME_ID;
 
 // TODO: 상수 설정 자동화
