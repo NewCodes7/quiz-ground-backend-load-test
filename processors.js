@@ -57,7 +57,6 @@ function setPlayerName(userContext, events, done) {
 
     incrementCounter();
 
-    const startedAt = process.hrtime();
     userContext.vars.userId = `${Math.random()}번째 유저`;
 
     const socket = userContext.sockets[''];
@@ -71,17 +70,12 @@ function setPlayerName(userContext, events, done) {
     socket.on('setPlayerName', async (response) => {
         const { playerId, playerName } = response;
         if (playerId === userContext.vars.myPlayerId && playerName === userContext.vars.userId) {
-            const endedAt = process.hrtime(startedAt);
-            const delta = endedAt[0] * 1e9 + endedAt[1];
-
-            events.emit('histogram', 'socketio.response_time.set_player_name', delta / 1e6);
-            events.emit('counter', 'total_count.success.set_player_name', 1);
-
             if (!doneCalled) {
                 const waitForPlayers = async () => {
                     const currentCount = await checkCounter();
                     console.log(`플레이어들을 기다리는 중... 현재 접속 인원: ${currentCount}명`);
                     
+                    // 중요! 원하는 인원만큼 들어와야 게임 시작하게 타이밍 조절 
                     if (Number(currentCount) >= MIN_PLAYERS_FOR_TEST) {
                         console.log(`${currentCount}명의 플레이어가 접속했습니다. 테스트를 시작합니다!`);
                         if (!doneCalled) {
