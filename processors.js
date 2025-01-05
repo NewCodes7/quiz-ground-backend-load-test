@@ -8,10 +8,7 @@ const MIN_PLAYERS_FOR_TEST = 100;
 const GAME_ID = process.env.GAME_ID;
 
 // TODO: 상수 설정 자동화
-const DURATION_TIME = 25000; // game-scenraio.yml duration과 동일하게 설정
-const TOTAL_THINK_TIME = 30000; // game-scenario.yml think-time 총합과 동일하게 설정
-
-const TIME_OUT = DURATION_TIME + TOTAL_THINK_TIME + 10000;
+const DURATION_TIME = 20000; // game-scenraio.yml duration과 동일하게 설정
 const FIRST_WAIT_TIME = DURATION_TIME + 10000;
 
 /* 

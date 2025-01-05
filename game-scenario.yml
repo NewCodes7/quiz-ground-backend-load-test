@@ -7,6 +7,7 @@ config:
       arrivalRate: 5 # 1초에 몇 명의 유저가 들어올 것인지 설정 (arrivalRate * duration = 총 유저 수)
   processor: "processors.js" 
 
+# 5분 시나리오 
 scenarios:
   - name: "1-minute 200 players test"
     engine: socketio
